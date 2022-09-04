@@ -1,0 +1,152 @@
+CSC II Notes
+C++ compiles directly into machine code, no JVM or going from Java to byte code to machine code like in Java. C++ program can only run on the type of system it was compiled upon.
+Instead of import, C++ uses  #include <iostream> (input/output stream). Allows you to print things out and read things in
+After #include  using namespace std; (gives access to global names (like variables) found in standard system libraries
+Other libraries you may want to specify in #include:
+iomanip allows the user to format input/output
+fstream allows usage of file input/output
+string allows usage of C++ strings
+cmath allows usage of standard ‘C’ math functions (like sin(), cos(), ...)
+cstdio allows usage of ‘C’ input/output functions like printf()
+cstdlib allows usage of miscellaneous ‘C’ functions such as rand()
+#include <fstream>	- streams can be constructed from files
+ifstream myInputFile(“someInputFile.txt”);	// construct new input stream (similar to cin) using ifstream type
+ofstream fileForOutput(“newFile.txt”);	// construct new output stream (similar to cout) using ofstream type		 with ofstream, new file will be created, if it exists, will be overwritten
+wherever used cin/cout before, can now use file name to read from file instead of keyboard
+fileForOutput  << “hello world” << endl;
+int sum=0;
+int nextVal;
+myInputFile >> nextVal;
+while (myInputFile) // can use ifstream like bool
+{
+   sum+=nextVal;
+   myInputFile>>nextVal;
+}
+fileForOutput << “Sum is: “ << sum;
+fileForOutput.close();	// close output file 
+
+primary function of return  Leaves the current function call
+ctrl + c  break running program
+spacing on input file doesn’t matter
+
+Coordinate MyLocation(); // note the constructor invocation
+  MyLocation.x=10; // without the new, this does NOT crash
+  MyLocation.y=17; // without the new, this does NOT crash
+Compiles in C++ ^, creates new object, objects are not references
+
+Functions:
+Can write “standalone” functions, not part of any class
+void mySwap(Coordinate &p1, Coordinate &p2)
+  {
+    int tempX, tempY;
+    tempX=p1.X;
+    p1.X=p2.X;
+    p2.X=tempX;
+    tempY=p1.Y;
+    p1.Y=p2.Y;
+    p2.Y=tempY;
+  }
+Would not work in C++ ^, 
+In Java, p1 . is a pointer to an x and y value, p2 is also a reference to the object containing x and y coordinates
+In C++, p1 and p2 are not references, they are the object. In the function, changing local variables, nothing actually changed outside the function for first and second
+Fix  include &  forces parameter to be passed by reference
+Call by value (C++) vs. call by reference (java)
+
+Global Variables:
+Can declare variables outside classes, considered global in scope, exist in the entire program
+Look for local, then parameter, then global variable
+
+#include <iostream>
+using namespace std;
+// global variables
+int one; 
+int two;
+int three; 
+int four;
+void myFunc(int three)
+{
+  int one = 11;
+  two = 22;
+  three = 33;
+  four = 44;
+  cout << "one=" << one << ", two=" << two 
+       << ", three=" << three << ", four=" << four << endl;
+}
+int main(void)
+{
+  one = 1;
+  int two = 2;
+  three = 3;
+  four = 4;
+  cout << "one=" << one << ", two=" << two 
+       << ", three=" << three << ", four=" << four << endl;
+  myFunc(333);
+  cout << "one=" << one << ", two=" << two 
+       << ", three=" << three << ", four=" << four << endl;
+  return 0;
+}
+The resulting output would be:
+one=1, two=2, three=3, four=4
+one=11, two=22, three=33, four=44
+one=1, two=2, three=3, four=44
+
+Start executing at main function
+When answering this question on exam:
+List global variables:
+	Global:				Main:			myFunc:
+	one: 1				two: 2			three: 333, 33
+	two: 1, 22						one: 11	
+	three: 3							
+	four: 4, 44	
+
+
+
+Arrays:
+Not objects in C++
+Example syntax:
+double myCPPArray[25];
+
+Object Oriented Design 
+Purpose of constructor is to initialize instance variables
+class Demo
+{
+public:		// everything after colon is public until private:
+  int a;
+private:
+  int b;
+  int silly(){return a-b;} // silly is also private
+public:
+  Demo(){a=0; b=0;}
+};
+
+public class CellTower extends Coordinate
+{
+  // ... add some more attributes and/or methods here
+}
+The equivalent in C++ might be:
+class CellTower: public Coordinate
+{
+  // ... add some more attributes and/or methods here
+};
+Note that the public keyword on the class header line above indicates that all public 
+members of Coordinate should also be public in CellTower
+
+
+
+
+
+
+
+Linux:
+G++ -o hello -Wall -ansi -pedantic – std=c++20 hello.cpp
+G++  compiles
+-Wall  All warnings
+-ansi  Allow me to follow ansi standard for C++
+-pedantic  Makes you required to follow ansi std
+-std=c++20  Enforce standard C++ 20  latest version of C++
+Cd – change directory
+Ls – list
+Ls -l – long version
+Pwd – print full path name of current directory
+Mkdir – create new folder
+
